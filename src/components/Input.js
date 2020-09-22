@@ -29,12 +29,14 @@ class Input extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const file = this.fileInput.current.files[0];
 
-    if (this.checkN()) {
-      const file = this.fileInput.current.files[0];
+    if (this.checkN() && file !== undefined) {
       this.fileReader = new FileReader();
       this.fileReader.onload = this.parseFile;
       this.fileReader.readAsText(file);
+    } else if (file === undefined) {
+      alert("Ви не ввели файл або ввели некоректний файл");
     } else {
       alert("Некоректне N");
     }
