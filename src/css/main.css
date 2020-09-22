@@ -1,0 +1,15 @@
+.input {
+  margin: 50px auto;
+  width: 300px;
+  font-size: 1.2em; }
+  .input label {
+    display: block;
+    margin: 5px auto; }
+  .input button,
+  .input input {
+    font-size: 0.9em; }
+  .input button {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    padding: 5px 10px; }
