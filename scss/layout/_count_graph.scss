@@ -1,0 +1,8 @@
+.count-graph {
+  margin: 20px auto;
+  width: 600px;
+
+  .heading {
+    @include heading;
+  }
+}

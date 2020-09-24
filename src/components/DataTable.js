@@ -9,8 +9,16 @@ class DataTable extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    const inputData = this.props.inputData;
+    if (prevProps.inputData !== inputData) {
+      this.setState({
+        data: inputData.chunk(10),
+      });
+    }
+  }
+
   componentDidMount() {
-    const { N, InputData } = this.props.data;
     const ceil = Math.ceil;
 
     Object.defineProperty(Array.prototype, "chunk", {
@@ -21,32 +29,26 @@ class DataTable extends React.Component {
       },
     });
 
-    if (N !== undefined) {
-      this.setState(
-        {
-          data: InputData.chunk(10),
-        },
-        () => {
-          console.log(this.state.data);
-        }
-      );
-    } else {
-      this.setState(
-        {
-          data: Array(20).fill(Array(10).fill(0)),
-        },
-        () => {
-          console.log(this.state.data);
-        }
-      );
-    }
+    this.setState({
+      data: Array(20).fill(Array(10).fill(0)),
+    });
   }
 
   render() {
     return (
       <div className="data-table">
         <h4 className="heading">Вхідні данні</h4>
-        <table className="table"></table>
+        <table className="table">
+          <tbody>
+            {this.state.data.map((chunk, index) => (
+              <tr key={index}>
+                {chunk.map((item, index) => (
+                  <td key={index}>{item}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

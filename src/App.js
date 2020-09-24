@@ -3,6 +3,7 @@ import "./css/main.css";
 
 import Input from "./components/Input";
 import DataTable from "./components/DataTable";
+import NumberCountGraph from "./components/NumberCountGraph";
 
 class App extends React.Component {
   constructor(props) {
@@ -10,26 +11,17 @@ class App extends React.Component {
 
     this.state = {
       N: undefined,
-      InputData: [],
+      inputData: [],
     };
   }
 
-  componentDidMount() {
-    console.log(this.state.inputData);
-  }
-
-  setInput = (N, InputData) => {
-    if (N === InputData.length) {
-      this.setState(
-        {
-          ...this.state,
-          N,
-          InputData,
-        },
-        () => {
-          console.log(this.state.InputData);
-        }
-      );
+  setInput = (N, inputData) => {
+    if (N === inputData.length) {
+      this.setState({
+        ...this.state,
+        N,
+        inputData,
+      });
     } else {
       alert("N не дорівнює кількості чисел отриманих з файла");
     }
@@ -39,9 +31,8 @@ class App extends React.Component {
     return (
       <div className="app">
         <Input setInput={this.setInput} />
-        <DataTable
-          data={{ N: this.state.N, inputData: this.state.InputData }}
-        />
+        <DataTable inputData={this.state.inputData} />
+        <NumberCountGraph inputData={this.state.inputData} />
       </div>
     );
   }

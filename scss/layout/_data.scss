@@ -1,0 +1,28 @@
+.data-table {
+  width: 450px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .heading {
+    @include heading;
+  }
+
+  .table,
+  td,
+  th {
+    border: 1px solid #000;
+  }
+
+  .table {
+    border-collapse: collapse;
+
+    td {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+  }
+}
