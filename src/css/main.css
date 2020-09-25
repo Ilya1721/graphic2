@@ -21,9 +21,9 @@
   flex-direction: column;
   align-items: center; }
   .data-table .heading {
-    text-align: center;
-    font-size: 1.5em;
-    margin: 0 0 20px; }
+    margin: 0 0 20px;
+    font-size: 1.2em;
+    text-align: center; }
   .data-table .table,
   .data-table td,
   .data-table th {
@@ -38,7 +38,7 @@
 
 .count-graph {
   margin: 20px auto;
-  width: 450px; }
+  width: 600px; }
   .count-graph .heading {
     margin: 0 0 20px;
     font-size: 1.2em;

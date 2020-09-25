@@ -4,6 +4,7 @@ import "./css/main.css";
 import Input from "./components/Input";
 import DataTable from "./components/DataTable";
 import NumberCountGraph from "./components/NumberCountGraph";
+import Gistogram from "./components/Gistogram";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class App extends React.Component {
 
     this.state = {
       N: undefined,
-      inputData: [],
+      inputData: new Array(203).fill(0),
     };
   }
 
@@ -33,6 +34,7 @@ class App extends React.Component {
         <Input setInput={this.setInput} />
         <DataTable inputData={this.state.inputData} />
         <NumberCountGraph inputData={this.state.inputData} />
+        <Gistogram inputData={this.state.inputData} />
       </div>
     );
   }
