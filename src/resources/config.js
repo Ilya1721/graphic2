@@ -1,5 +1,3 @@
-import strings from "../resources/strings";
-
 export const graphConfig = {
   axes: {
     x: {

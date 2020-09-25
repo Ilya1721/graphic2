@@ -37,7 +37,7 @@ class NumberCountGraph extends React.Component {
         prevItem = item;
       });
       let string = "x, y\n";
-      countArr.map((item) => {
+      countArr.forEach((item) => {
         string += `${item.num}, ${item.count}\n`;
       });
       this.setState(

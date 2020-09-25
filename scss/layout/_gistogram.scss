@@ -1,0 +1,8 @@
+.gistogram {
+  margin: 20px auto;
+  width: 600px;
+
+  .heading {
+    @include heading;
+  }
+}
