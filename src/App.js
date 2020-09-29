@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       N: undefined,
       inputData: new Array(203).fill(0),
+      countArr: [],
     };
   }
 
@@ -28,13 +29,30 @@ class App extends React.Component {
     }
   };
 
+  setCountArr = (arr) => {
+    if (arr.length > 0) {
+      this.setState({
+        ...this.state,
+        countArr: arr,
+      });
+    } else {
+      alert("Count arr error! it is empty");
+    }
+  };
+
   render() {
     return (
       <div className="app">
         <Input setInput={this.setInput} />
         <DataTable inputData={this.state.inputData} />
-        <NumberCountGraph inputData={this.state.inputData} />
-        <Gistogram inputData={this.state.inputData} />
+        <NumberCountGraph
+          setCountArr={this.setCountArr}
+          inputData={this.state.inputData}
+        />
+        <Gistogram
+          countArr={this.state.countArr}
+          inputData={this.state.inputData}
+        />
       </div>
     );
   }

@@ -22,9 +22,11 @@ class Gistogram extends React.Component {
         (Math.max(...inputData) - Math.min(...inputData)) / K
       );
       const centerT = (Math.min(...inputData) + Math.max(...inputData)) / 2;
+      const chunks = this.props.countArr.chunk(K);
       console.log(K);
       console.log(deltaT);
       console.log(centerT);
+      console.log(chunks);
     }
   };
 
@@ -37,7 +39,7 @@ class Gistogram extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.inputData !== this.props.inputData) {
+    if (prevProps !== this.props) {
       this.setData(this.buildGraph);
     }
   }

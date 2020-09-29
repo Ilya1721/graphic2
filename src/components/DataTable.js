@@ -19,11 +19,9 @@ class DataTable extends React.Component {
   }
 
   componentDidMount() {
-    const ceil = Math.ceil;
-
     Object.defineProperty(Array.prototype, "chunk", {
       value: function (n) {
-        return Array.from(Array(ceil(this.length / n)), (_, i) =>
+        return Array.from(Array(Math.ceil(this.length / n)), (_, i) =>
           this.slice(i * n, i * n + n)
         );
       },
