@@ -5,6 +5,8 @@ import Input from "./components/Input";
 import DataTable from "./components/DataTable";
 import NumberCountGraph from "./components/NumberCountGraph";
 import Gistogram from "./components/Gistogram";
+import GistogramTable from "./components/GistogramTable";
+import XTable from "./components/XTable";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class App extends React.Component {
       N: undefined,
       inputData: new Array(203).fill(0),
       countArr: [],
+      table: [],
     };
   }
 
@@ -40,6 +43,17 @@ class App extends React.Component {
     }
   };
 
+  setTable = (arr) => {
+    if (arr.length > 0) {
+      this.setState({
+        ...this.state,
+        table: arr,
+      });
+    } else {
+      alert("Gistogram table is empty!");
+    }
+  };
+
   render() {
     return (
       <div className="app">
@@ -52,7 +66,10 @@ class App extends React.Component {
         <Gistogram
           countArr={this.state.countArr}
           inputData={this.state.inputData}
+          setTable={this.setTable}
         />
+        <GistogramTable table={this.state.table} />
+        <XTable table={this.state.table} inputData={this.state.inputData} />
       </div>
     );
   }

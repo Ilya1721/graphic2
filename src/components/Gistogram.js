@@ -31,11 +31,13 @@ class Gistogram extends React.Component {
         const count = this.countFreq(inputData, localMin, localMax);
         const relCount = count / N;
         const interval = [localMin, localMax];
+        const chunk = this.getChunk(inputData, localMin, localMax);
         table.push({
           interval: interval,
           middle: middle,
           count: count,
           relCount: relCount,
+          chunk: chunk,
         });
         string += `${interval[0]}, ${0}\n`;
         string += `${interval[0]}, ${relCount}\n`;
@@ -43,8 +45,7 @@ class Gistogram extends React.Component {
         string += `${interval[1]}, ${0}\n`;
         localMin += deltaT;
       }
-      //console.log(string);
-      //console.log(table);
+      this.props.setTable(table);
       this.setState(
         {
           string: string,
@@ -65,6 +66,17 @@ class Gistogram extends React.Component {
     return count;
   };
 
+  getChunk = (arr, min, max) => {
+    let chunk = [];
+    arr.forEach((i) => {
+      if (i >= min && i < max) {
+        chunk.push(i);
+      }
+    });
+
+    return chunk;
+  };
+
   buildGraph = () => {
     return new Dygraph(this.graphRef.current, this.state.string, this.config);
   };
@@ -74,7 +86,7 @@ class Gistogram extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+    if (prevProps.inputData !== this.props.inputData) {
       this.setData(this.buildGraph);
     }
   }
