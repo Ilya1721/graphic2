@@ -14,36 +14,43 @@ class XTable extends React.Component {
     const inputData = this.props.inputData;
     const laplas = this.laplas;
     if (prevProps.table !== table) {
-      //const tsAll = inputData.reduce((a, b) => a + b, 0) / inputData.length;
+      const N = inputData.length;
+      const h = Math.ceil(1 + 3.322 * Math.log10(N));
+      const m = table.length;
+      const r = 2;
+      const q = m - r - 1;
+      let middle = 0;
+      let sum = 0;
+      table.forEach((t) => {
+        middle += t.middle * t.count;
+        sum += Math.pow(t.middle, 2) * t.count;
+      });
+      middle = middle / N;
+      sum = sum / N - Math.pow(middle, 2);
+      sum = Math.sqrt(sum);
       const newTable = table.map((t) => {
-        const N = t.chunk.length;
-        const middle = t.middle;
-        const ts = t.chunk.reduce((a, b) => a + b, 0) / N;
-        let sum = 0;
-        t.chunk.forEach((i) => {
-          sum += Math.pow(i - ts, 2);
-        });
-        const sq = sum / (N - 1);
-        const s = Math.sqrt(sq);
-        const f = (middle - ts) / s;
-        const ft = laplas(f);
-        const K = Math.ceil(1 + 3.322 * Math.log10(N));
-        const inputMin = Math.min(...t.chunk);
-        const inputMax = Math.max(...t.chunk);
-        const deltaT = Math.ceil((inputMax - inputMin) / K);
-        const p = (deltaT / s) * laplas(middle);
-        console.log(ts);
-        console.log(s);
+        const z = (t.count - middle) / sum;
+        const f = laplas(z);
+        const p = ((h * N) / sum) * f;
+        const pm = p; //need to fix
+        const x2 = Math.pow(t.count - p, 2) / p;
         console.log(f);
-        console.log(ft);
         console.log(p);
-        console.log(middle);
+        console.log(pm);
+        console.log(q);
+        console.log(x2);
         console.log(t.chunk);
 
         return {
           ...t,
-          ft: ft,
+          f: f,
+          p: p,
+          pm: pm,
+          x2: x2,
         };
+      });
+      this.setState({
+        table: newTable,
       });
     }
   }
@@ -56,7 +63,6 @@ class XTable extends React.Component {
 
   render() {
     const { table } = this.state;
-    //console.log(table);
     return (
       <div className="data-table xtable">
         <h4 className="heading">
@@ -76,7 +82,33 @@ class XTable extends React.Component {
               </th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {table.map((table, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{table.count}</td>
+                <td>{table.middle}</td>
+                <td>{table.f.toFixed(4)}</td>
+                <td>{table.p.toFixed(4)}</td>
+                <td>{table.pm.toFixed(4)}</td>
+                <td>{table.x2.toFixed(4)}</td>
+              </tr>
+            ))}
+            <tr>
+              <td>Сума:</td>
+              <td>{table.map((t) => t.count).reduce((a, b) => a + b, 0)}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                {table
+                  .map((t) => t.x2)
+                  .reduce((a, b) => a + b, 0)
+                  .toFixed(4)}
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
