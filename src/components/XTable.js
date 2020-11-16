@@ -46,7 +46,6 @@ class XTable extends React.Component {
       sum = Math.sqrt(sum);
       const vt = M / sum;
       const newTable = table.map((t) => {
-        let chunkSum = t.chunk.reduce((a, b) => a + b, 0) / N;
         const z = (t.count - middle) / sum;
         const f = laplas(z);
         const p = (h / sum) * f;
