@@ -52,13 +52,6 @@ class XTable extends React.Component {
         const p = (h / sum) * f;
         const pm = p * N;
         const x2 = Math.pow(t.count - pm, 2) / pm;
-        console.log(M);
-        console.log(f);
-        console.log(p);
-        console.log(pm);
-        console.log(q);
-        console.log(x2);
-        console.log(t.chunk);
         return {
           ...t,
           f: f,
@@ -72,7 +65,6 @@ class XTable extends React.Component {
       let xCrit;
       if (Number.isNaN(x2Sum)) xCrit = 0;
       else xCrit = pirson[Math.round(x2Sum) - 1][q - 2];
-      console.log(xCrit);
       const isNorm = xCrit >= 0.05;
       const object = {
         arr: newTable,
